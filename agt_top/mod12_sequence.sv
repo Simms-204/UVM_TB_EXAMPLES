@@ -64,11 +64,11 @@ endclass
       				finish_item(req);
       				
       				start_item(req);
-      				assert(req.randomize() with {rst_n == 1;load_in =0;});
+      				assert(req.randomize() with {rst_n == 1;load_in ==0;});
       				finish_item(req);
       				
       				start_item(req);
-      				assert(req.randomize() with {rst_n == 1;load_in = 0;});
+      				assert(req.randomize() with {rst_n == 1;load_in == 0;});
       				finish_item(req);
       				
     			end

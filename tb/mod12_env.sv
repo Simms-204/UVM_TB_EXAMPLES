@@ -33,7 +33,7 @@ endclass
 	endfunction
 	
 	function void mod12_env :: build_phase (uvm_phase phase);
-		duper.build_phase(phase)		
+		super.build_phase(phase)		
 		if(!(uvm_config_db #(mod12_env_cfg):: get (this,"", "env_config", env_cfg)))
 			
 				`uvm_fatal("MOD12ENV","Error while getting the environment confguration object")
