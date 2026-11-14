@@ -37,9 +37,11 @@ function mod12_monitor :: new (string name = "mod12_monitor", uvm_component pare
 endfunction
 
 function void mod12_monitor :: build_phase(uvm_phase phase);
+
+	super.build_phase(phase);
 	if(!(uvm_config_db#(mod12_agt_cfg)::get(this,"","agent_config",agt_cfg)))
 		`uvm_fatal("MOD12_MONITOR","Cannot get the configuration file,have you set it?")
-		super.buil_phase(phase);
+		//super.build_phase(phase);
 endfunction
 
 
@@ -49,7 +51,7 @@ endfunction
 
 
 task mod12_monitor :: run_phase(uvm_phase phase);
-	txn = mod12_txn :: type_id ::create("txn");
+//	txn = mod12_txn :: type_id ::create("txn");
 	
 	forever
 		collect_data();
@@ -57,7 +59,8 @@ endtask
 
 task mod12_monitor :: collect_data();
 
-	repeat(2)
+	
+	txn = mod12_txn :: type_id ::create("txn");
 		@(vif.mon_cb);
 		
 		txn.rst_n = vif.mon_cb.rst_n;
@@ -65,6 +68,8 @@ task mod12_monitor :: collect_data();
 		txn.up_dwn = vif.mon_cb.up_dwn;
 		txn.qout = vif.mon_cb.qout;
 		txn.in = vif.mon_cb.in;
+
+		ap.write(txn);
 		
 endtask
 		

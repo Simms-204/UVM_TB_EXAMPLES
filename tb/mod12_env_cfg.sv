@@ -26,6 +26,6 @@ endclass
 
 
 function mod12_env_cfg :: new(string name = "mod12_env_cfg");
-	super.new(name)
+	super.new(name);
 endfunction	
 

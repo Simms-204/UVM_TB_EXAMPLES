@@ -32,7 +32,8 @@ endclass
 	
 	
 	function void mod12_agent :: build_phase (uvm_phase phase);
-		if(!(uvm_config_db #(mod12_txn):: get(this,"",agent_config,agt_cfg)))
+		super.build_phase(phase);
+		if(!(uvm_config_db #(mod12_agt_cfg):: get(this,"","agent_config",agt_cfg)))
 			`uvm_fatal("MOD12AGENT","Error in getting the agent configuration object ")
 		
 		monh = mod12_monitor :: type_id :: create ("monh",this);
@@ -46,7 +47,7 @@ endclass
 	
 	function void mod12_agent :: connect_phase (uvm_phase phase);
 		if(agt_cfg.is_active == UVM_ACTIVE)
-			drvh.seq_item_port.connect(seqr.seq_item_export);
+			drvh.seq_item_port.connect(seqrh.seq_item_export);
 	endfunction
 	
 		

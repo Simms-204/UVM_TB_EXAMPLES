@@ -13,7 +13,7 @@ class mod12_agt_cfg extends uvm_object;
 
 	`uvm_object_utils(mod12_agt_cfg)
 	
-	virtual mod12_interface.DRV vif;
+	virtual mod12_interface vif;
 	
 	uvm_active_passive_enum is_active ;
 	

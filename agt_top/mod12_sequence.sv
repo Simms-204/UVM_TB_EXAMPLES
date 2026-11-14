@@ -64,11 +64,11 @@ endclass
       				finish_item(req);
       				
       				start_item(req);
-      				assert(req.randomize() with {rst_n == 1;});
+      				assert(req.randomize() with {rst_n == 1;load_in =0;});
       				finish_item(req);
       				
       				start_item(req);
-      				assert(req.randomize() with {rst_n == 1;});
+      				assert(req.randomize() with {rst_n == 1;load_in = 0;});
       				finish_item(req);
       				
     			end
@@ -89,7 +89,7 @@ class mod12_countup extends mod12_sequence;
 endclass
 
 
-	function mod12_countup :: new(string name = "mod12_countup")
+	function mod12_countup :: new(string name = "mod12_countup");
 		super.new(name);
 	endfunction
 	
@@ -99,7 +99,7 @@ endclass
 			begin
 				req = mod12_txn::type_id::create("req");
 				start_item(req);
-      				assert(req.randomize() with {rst_n == 1; up_dwn==0; load_in == 0});
+      				assert(req.randomize() with {rst_n == 1; up_dwn==0; load_in == 0;});
       				finish_item(req);
 			end
 	endtask
@@ -116,7 +116,7 @@ class mod12_countdwn extends mod12_sequence;
 endclass
 
 
-	function mod12_countup :: new(string name = "mod12_countdwn")
+	function mod12_countdwn :: new(string name = "mod12_countdwn");
 		super.new(name);
 	endfunction
 	
@@ -126,7 +126,7 @@ endclass
 			begin
 				req = mod12_txn::type_id::create("req");
 				start_item(req);
-      				assert(req.randomize() with {rst_n == 1; up_dwn==1; load_in == 0});
+      				assert(req.randomize() with {rst_n == 1; up_dwn==1; load_in == 0;});
       				finish_item(req);
 			end
 	endtask

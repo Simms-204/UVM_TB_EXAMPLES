@@ -13,7 +13,7 @@ package mod12_test_pkg;
 import uvm_pkg :: *;
 
 `include "uvm_macros.svh"
-`include "mod12_defs.sv"
+//`include "mod12_defs.sv"
 `include "mod12_txn.sv"
 `include "mod12_agt_cfg.sv"
 `include "mod12_env_cfg.sv"

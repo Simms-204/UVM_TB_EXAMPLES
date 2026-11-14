@@ -29,9 +29,10 @@ function mod12_driver :: new (string name = "mod12_driver", uvm_component parent
 endfunction
 
 function void mod12_driver :: build_phase(uvm_phase phase);
+	super.build_phase(phase);
 	if(!(uvm_config_db#(mod12_agt_cfg)::get(this,"","agent_config",agt_cfg)))
 		`uvm_fatal("MOD12_DRIVER","Cannot get the configuration file,have you set it?")
-		super.buil_phase(phase);
+		
 endfunction
 
 
@@ -44,17 +45,17 @@ task mod12_driver::run_phase(uvm_phase phase);
 		begin
 			seq_item_port.get_next_item(req);
 			drive_item(req);
-			seq_item_port.item_done(req);
+			seq_item_port.item_done();
 		end
 endtask
 
 task mod12_driver::drive_item(mod12_txn txn);
 
-	@(vif.drv_cb)
-	vif.rst_n <= txn.rst_n;
-	vif.in <= txn.in;
-	vif.load_in <= txn.load_in;
-	vif.up_dwn <= txn.up_dwn;
+	@(vif.drv_cb);
+	vif.drv_cb.rst_n <= txn.rst_n;
+	vif.drv_cb.in <= txn.in;
+	vif.drv_cb.load_in <= txn.load_in;
+	vif.drv_cb.up_dwn <= txn.up_dwn;
 endtask
 
 

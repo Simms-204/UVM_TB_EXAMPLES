@@ -25,23 +25,25 @@ class mod12_base_test extends uvm_test;
 	bit has_agent = 1; // has_agent handle
 	
 	
-	extern function new(string name "mod12_base_test",uvm_component parent);
+	extern function new(string name = "mod12_base_test",uvm_component parent);
 	extern function void build_phase (uvm_phase phase);
 endclass
 
 
-	function mod12_base_test :: new (string name "mod12_base_test",uvm_component parent);
+	function mod12_base_test :: new (string name ="mod12_base_test",uvm_component parent);
 		super.new(name,parent);
 	endfunction
 	
 	
-	function mod12_base_test :: build_phase (uvm_phase phase);
+	function void mod12_base_test :: build_phase (uvm_phase phase);
+		super.build_phase(phase);
 		env_cfg = mod12_env_cfg :: type_id :: create("env_cfg");
 		agt_cfg = mod12_agt_cfg :: type_id :: create("agt_cfg");
 		if(has_agent)
-			begin
+			begin	
+				env_cfg.has_scoreboard = 1;
 				agt_cfg.is_active = UVM_ACTIVE;
-		
+				
 				if(!(uvm_config_db #(virtual mod12_interface) :: get (this,"","vif",agt_cfg.vif)))
 					`uvm_fatal("MOD12_BASE_TEST","Cannot get the virtual interface to the  configuration object ")
 			
@@ -65,25 +67,25 @@ class mod12_rand_test extends mod12_base_test;
 	
 	mod12_sequence rand_tst;
 	
-	extern function new(string name "mod12_rand_test",uvm_component parent);
+	extern function new(string name ="mod12_rand_test",uvm_component parent);
 	extern function void build_phase (uvm_phase phase);
 	extern task run_phase(uvm_phase phase);
 
 endclass
 
-	function mod12_rand_test :: new (string name "mod12_rand_test",uvm_component parent);
+	function mod12_rand_test :: new (string name ="mod12_rand_test",uvm_component parent);
 		super.new(name,parent);
 	endfunction
 	
-	function mod12_rand_test :: build_phase (uvm_phase phase);
+	function void mod12_rand_test :: build_phase (uvm_phase phase);
 		super.build_phase(phase);
 	endfunction
 	
 	task mod12_rand_test :: run_phase (uvm_phase phase);
-		phase.raise_objection(this)
+		phase.raise_objection(this);
 		rand_tst = mod12_sequence :: type_id :: create ("rand_tst");
 		rand_tst.start(envh.agt.seqrh);
-		phase.drop_objection(this)
+		phase.drop_objection(this);
 	endtask
 	
 /************************************************************************************************************************************
@@ -98,25 +100,25 @@ class mod12_rst_test extends mod12_base_test;
 	
 	mod12_reset rst_tst;
 	
-	extern function new(string name "mod12_rst_test",uvm_component parent);
+	extern function new(string name = "mod12_rst_test",uvm_component parent);
 	extern function void build_phase (uvm_phase phase);
 	extern task run_phase(uvm_phase phase);
 
 endclass
 
-	function mod12_rst_test :: new (string name "mod12_rest_test",uvm_component parent);
+	function mod12_rst_test :: new (string name = "mod12_rst_test",uvm_component parent);
 		super.new(name,parent);
 	endfunction
 	
-	function mod12_rst_test :: build_phase (uvm_phase phase);
+	function void mod12_rst_test :: build_phase (uvm_phase phase);
 		super.build_phase(phase);
 	endfunction
 	
 	task mod12_rst_test :: run_phase (uvm_phase phase);
-		phase.raise_objection(this)
+		phase.raise_objection(this);
 		rst_tst = mod12_reset :: type_id :: create ("rst_tst");
 		rst_tst.start(envh.agt.seqrh);
-		phase.drop_objection(this)
+		phase.drop_objection(this);
 	endtask
 	
 /************************************************************************************************************************************
@@ -130,25 +132,25 @@ class mod12_count_up_test extends mod12_base_test;
 	
 	mod12_countup countup_tst;
 	
-	extern function new(string name "mod12_count_up_test",uvm_component parent);
+	extern function new(string name ="mod12_count_up_test",uvm_component parent);
 	extern function void build_phase (uvm_phase phase);
 	extern task run_phase(uvm_phase phase);
 
 endclass
 
-	function mod12_count_up_test :: new (string name "mod12_count_up_test",uvm_component parent);
+	function mod12_count_up_test :: new (string name ="mod12_count_up_test",uvm_component parent);
 		super.new(name,parent);
 	endfunction
 	
-	function mod12_count_up_test :: build_phase (uvm_phase phase);
+	function void mod12_count_up_test :: build_phase (uvm_phase phase);
 		super.build_phase(phase);
 	endfunction
 	
 	task mod12_count_up_test :: run_phase (uvm_phase phase);
-		phase.raise_objection(this)
-		countup_tst = mod12_countup :: type_id :: create ("rst_tst");
+		phase.raise_objection(this);
+		countup_tst = mod12_countup :: type_id :: create ("countup_tst");
 		countup_tst.start(envh.agt.seqrh);
-		phase.drop_objection(this)
+		phase.drop_objection(this);
 	endtask
 	
 /************************************************************************************************************************************
@@ -162,25 +164,26 @@ class mod12_count_dwn_test extends mod12_base_test;
 	
 	mod12_countdwn countdwn_tst;
 	
-	extern function new(string name "mod12_count_dwn_test",uvm_component parent);
+	extern function new(string name ="mod12_count_dwn_test",uvm_component parent);
 	extern function void build_phase (uvm_phase phase);
 	extern task run_phase(uvm_phase phase);
 
 endclass
 
-	function mod12_count_dwn_test :: new (string name "mod12_count_dwn_test",uvm_component parent);
+	function mod12_count_dwn_test :: new (string name= "mod12_count_dwn_test",uvm_component parent);
 		super.new(name,parent);
 	endfunction
 	
-	function mod12_count_dwn_test :: build_phase (uvm_phase phase);
+	function void mod12_count_dwn_test :: build_phase (uvm_phase phase);
 		super.build_phase(phase);
 	endfunction
 	
 	task mod12_count_dwn_test :: run_phase (uvm_phase phase);
-		phase.raise_objection(this)
-		countdwn_tst = mod12_countdwn :: type_id :: create ("rst_tst");
+		phase.raise_objection(this);
+		countdwn_tst = mod12_countdwn :: type_id :: create ("countdwn_tst");
 		countdwn_tst.start(envh.agt.seqrh);
-		phase.drop_objection(this)
+		#100;
+		phase.drop_objection(this);
 	endtask
 	
 	

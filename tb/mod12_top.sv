@@ -10,7 +10,7 @@ Version : 1.1
 
 
 module mod12_top;
-	import ram_test_pkg::*;
+	import mod12_test_pkg::*;
 	
 	import uvm_pkg::*;
 	
@@ -33,4 +33,8 @@ module mod12_top;
         uvm_config_db#(virtual mod12_interface)::set(null, "*", "vif", in0);
         run_test();
     end
+initial if ($test$plusargs("DUMP")) begin
+    $dumpfile("dump.vcd");
+    $dumpvars(0, mod12_top);
+end
 endmodule

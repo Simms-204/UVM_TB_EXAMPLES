@@ -5,7 +5,7 @@ interface mod12_interface(input bit clk);
 	logic up_dwn;
 	logic load_in;
 	
-	clocking drv_cb @(posedge clk)
+	clocking drv_cb @(posedge clk);
 	default input #1 output #1;
 		output rst_n;
 		output in;
@@ -13,7 +13,7 @@ interface mod12_interface(input bit clk);
 		output load_in;
 	endclocking
 	
-	clocking mon_cb @(posedge clk)
+	clocking mon_cb @(posedge clk);
 	default input #1 output #1;
 		input rst_n;
 		input in;
